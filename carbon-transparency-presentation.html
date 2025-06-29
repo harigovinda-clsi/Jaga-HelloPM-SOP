@@ -3,768 +3,986 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carbon Transparency in E-Commerce - PPT Style</title>
+    <title>Carbon Transparency | E-Commerce Sustainability Demo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <style>
+        :root {
+            --space-dark: #0b0d17;
+            --nebula-blue: #1e40af;
+            --planet-purple: #7e22ce;
+            --starlight: #f0f9ff;
+            --eco-green: #10b981;
+            --carbon-orange: #f59e0b;
+            --warning-red: #ef4444;
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            color: #333;
-            overflow: hidden;
+            background: linear-gradient(135deg, var(--space-dark), #1a1c2f);
+            color: var(--starlight);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            padding-bottom: 60px;
         }
         
-        .presentation-container {
-            width: 100vw;
-            height: 100vh;
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        header {
+            background: rgba(11, 13, 23, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid rgba(124, 58, 237, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            font-size: 2rem;
+            color: var(--eco-green);
+            animation: pulse 4s infinite;
+        }
+        
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--eco-green), #3b82f6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-link {
+            color: var(--starlight);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            background: rgba(124, 58, 237, 0.2);
+        }
+        
+        .hero {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--starlight), var(--eco-green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.4rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+        
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--eco-green);
+        }
+        
+        .section-title i {
+            font-size: 1.8rem;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .product-card {
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(124, 58, 237, 0.2);
             position: relative;
         }
         
-        .slide {
-            width: 100%;
-            height: 100%;
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(16, 185, 129, 0.3);
+            border-color: rgba(16, 185, 129, 0.4);
+        }
+        
+        .product-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .carbon-badge {
             position: absolute;
-            background: white;
-            padding: 60px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            opacity: 0;
-            transform: translateX(100%);
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-        
-        .slide.active {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        
-        .slide.prev {
-            transform: translateX(-100%);
-        }
-        
-        .slide-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        
-        .slide-number {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            background: #6c5ce7;
-            color: white;
+            top: 15px;
+            right: 15px;
+            background: rgba(11, 13, 23, 0.9);
             padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: bold;
+            border-radius: 50px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
         
-        h1 {
-            font-size: 3.5em;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 20px;
+        .badge-A {
+            color: var(--eco-green);
+            border: 2px solid var(--eco-green);
+        }
+        
+        .badge-B {
+            color: var(--carbon-orange);
+            border: 2px solid var(--carbon-orange);
+        }
+        
+        .badge-C {
+            color: var(--warning-red);
+            border: 2px solid var(--warning-red);
+        }
+        
+        .product-info {
+            padding: 1.5rem;
+        }
+        
+        .product-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .product-price {
+            color: var(--eco-green);
             font-weight: 700;
         }
         
-        h2 {
-            font-size: 2.8em;
-            color: #2c3e50;
-            margin-bottom: 30px;
-            font-weight: 600;
+        .product-description {
+            color: #94a3b8;
+            margin-bottom: 1.2rem;
+            line-height: 1.5;
         }
         
-        h3 {
-            font-size: 2em;
-            color: #34495e;
-            margin: 25px 0 15px 0;
-            font-weight: 500;
+        .carbon-details {
+            background: rgba(15, 23, 42, 0.7);
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 1.2rem;
+            font-size: 0.9rem;
         }
         
-        .subtitle {
-            font-size: 1.8em;
-            color: #7f8c8d;
-            font-weight: 300;
-            margin-bottom: 40px;
-        }
-        
-        .slide-content {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-        }
-        
-        .key-points {
+        .carbon-breakdown {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin: 30px 0;
+            gap: 8px;
+            margin-top: 8px;
         }
         
-        .point-card {
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            padding: 30px;
-            border-radius: 15px;
-            border-left: 6px solid #3498db;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        .breakdown-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+            border-bottom: 1px dashed rgba(124, 58, 237, 0.2);
         }
         
-        .point-card h4 {
-            font-size: 1.4em;
-            color: #2c3e50;
-            margin-bottom: 15px;
-        }
-        
-        .point-card p {
-            font-size: 1.1em;
-            line-height: 1.6;
-            color: #5a6c7d;
-        }
-        
-        .equation {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+        .cta-button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--nebula-blue), var(--planet-purple));
             color: white;
-            padding: 25px;
-            border-radius: 15px;
-            font-family: 'Courier New', monospace;
-            font-size: 1.3em;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
             text-align: center;
-            margin: 25px 0;
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+            text-decoration: none;
         }
         
-        .diagram-container {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 30px;
-            margin: 25px 0;
-            border: 3px solid #dee2e6;
-            position: relative;
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(124, 58, 237, 0.4);
         }
         
-        .diagram-title {
-            position: absolute;
-            top: -15px;
-            left: 30px;
-            background: white;
-            padding: 5px 15px;
-            font-weight: bold;
-            color: #6c757d;
-            font-size: 0.9em;
+        .carbon-comparison {
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 3rem 0;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(124, 58, 237, 0.2);
         }
         
-        .wireframe {
-            background: #2d3436;
-            color: #00ff41;
-            padding: 25px;
-            border-radius: 10px;
-            font-family: 'Courier New', monospace;
-            font-size: 1em;
-            line-height: 1.8;
-            white-space: pre-line;
-            overflow-x: auto;
+        .comparison-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cart-summary {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(15, 23, 42, 0.5);
+            padding: 1rem;
+            border-radius: 12px;
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .cart-item-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            background-size: cover;
+        }
+        
+        .cart-item-info {
+            flex-grow: 1;
+        }
+        
+        .savings-badge {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--eco-green);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
         }
         
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin: 30px 0;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
         }
         
         .stat-card {
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 16px;
+            padding: 1.5rem;
             text-align: center;
-            padding: 25px;
-            background: linear-gradient(135deg, #00b894, #00cec9);
-            color: white;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0, 184, 148, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(124, 58, 237, 0.2);
         }
         
-        .stat-number {
-            font-size: 3em;
-            font-weight: bold;
-            margin-bottom: 10px;
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 1rem 0;
+            color: var(--eco-green);
         }
         
         .stat-label {
-            font-size: 1.1em;
-            opacity: 0.9;
+            color: #94a3b8;
+            font-size: 1.1rem;
         }
         
-        .highlight-box {
-            background: linear-gradient(135deg, #fdcb6e, #f39c12);
-            padding: 25px;
-            border-radius: 15px;
-            margin: 25px 0;
-            border-left: 6px solid #e17055;
-        }
-        
-        .highlight-box h4 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-            font-size: 1.3em;
-        }
-        
-        .bullet-points {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .bullet-points li {
-            padding: 8px 0;
-            padding-left: 30px;
-            position: relative;
-            font-size: 1.1em;
-            line-height: 1.6;
-        }
-        
-        .bullet-points li::before {
-            content: "▶";
-            position: absolute;
-            left: 0;
-            color: #3498db;
-            font-weight: bold;
-        }
-        
-        .navigation {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
+        .carbon-impact {
+            margin-top: 3rem;
             display: flex;
-            gap: 15px;
-            z-index: 1000;
+            flex-direction: column;
+            align-items: center;
         }
         
-        .nav-btn {
-            background: rgba(255, 255, 255, 0.9);
-            border: 2px solid #667eea;
-            color: #667eea;
-            padding: 12px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 1em;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
+        .impact-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--eco-green);
+            text-align: center;
         }
         
-        .nav-btn:hover {
-            background: #667eea;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        .impact-equivalent {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
         }
         
-        .progress-bar {
+        .equivalent-card {
+            background: rgba(15, 23, 42, 0.7);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            min-width: 200px;
+        }
+        
+        .equivalent-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--carbon-orange);
+            margin: 10px 0;
+        }
+        
+        .equivalent-label {
+            color: #cbd5e1;
+        }
+        
+        .modal {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            transition: width 0.3s ease;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 13, 23, 0.9);
             z-index: 1000;
-        }
-        
-        .carbon-badge {
-            display: inline-block;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: bold;
-            margin: 5px;
-            font-size: 1em;
-        }
-        
-        .grade-a { background: #d4edda; color: #155724; }
-        .grade-b { background: #fff3cd; color: #856404; }
-        .grade-c { background: #f8d7da; color: #721c24; }
-        
-        .flow-diagram {
-            display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            margin: 30px 0;
-            font-family: 'Courier New', monospace;
         }
         
-        .flow-step {
-            background: linear-gradient(135deg, #74b9ff, #0984e3);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
+        .modal-content {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border-radius: 16px;
+            padding: 2.5rem;
+            max-width: 600px;
+            width: 90%;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(124, 58, 237, 0.4);
+            position: relative;
+            animation: modalAppear 0.5s ease-out;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: #94a3b8;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .close-modal:hover {
+            color: var(--eco-green);
+        }
+        
+        .modal-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--eco-green);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .modal-button {
             flex: 1;
-            margin: 0 10px;
-            font-size: 0.9em;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
         }
         
-        .flow-arrow {
-            font-size: 2em;
-            color: #3498db;
+        .modal-primary {
+            background: linear-gradient(135deg, var(--eco-green), #059669);
+            color: white;
+            border: none;
+        }
+        
+        .modal-secondary {
+            background: transparent;
+            color: #94a3b8;
+            border: 1px solid rgba(124, 58, 237, 0.4);
+        }
+        
+        .modal-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+            color: #64748b;
+            border-top: 1px solid rgba(124, 58, 237, 0.2);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1.5rem 0;
+        }
+        
+        .footer-link {
+            color: var(--eco-green);
+            text-decoration: none;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes modalAppear {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         @media (max-width: 768px) {
-            .slide {
-                padding: 30px;
+            .hero h1 {
+                font-size: 2.5rem;
             }
             
-            h1 { font-size: 2.5em; }
-            h2 { font-size: 2em; }
-            h3 { font-size: 1.5em; }
+            .nav-links {
+                display: none;
+            }
             
-            .key-points {
+            .products-grid {
                 grid-template-columns: 1fr;
-                gap: 20px;
             }
             
-            .stats-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
+            .cart-summary {
+                flex-direction: column;
             }
-        }
-        
-        .title-slide {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            text-align: center;
-        }
-        
-        .title-slide h1 {
-            color: white;
-        }
-        
-        .author-info {
-            margin-top: 50px;
-            font-size: 1.3em;
-            opacity: 0.9;
         }
     </style>
 </head>
 <body>
-    <div class="progress-bar" id="progressBar"></div>
+    <!-- Animated background -->
+    <div id="particles-js"></div>
     
-    <div class="presentation-container">
-        <!-- Slide 1: Title -->
-        <div class="slide active title-slide">
-            <div class="slide-number">1/12</div>
-            <div class="slide-content">
-                <h1>🌱 Carbon Transparency in E-Commerce</h1>
-                <p class="subtitle">The Quantum Mechanics of Sustainable Shopping</p>
-                
-                <div class="highlight-box">
-                    <h4>🚀 Mission Statement</h4>
-                    <p>Transforming carbon footprints from mysterious hieroglyphs into user-friendly emojis. Because decoding emissions shouldn't require a PhD in atmospheric chemistry!</p>
+    <header>
+        <div class="logo">
+            <i class="fas fa-seedling logo-icon"></i>
+            <div class="logo-text">CarbonScope</div>
+        </div>
+        <nav class="nav-links">
+            <a href="#" class="nav-link">Home</a>
+            <a href="#" class="nav-link">How It Works</a>
+            <a href="#" class="nav-link">For Businesses</a>
+            <a href="#" class="nav-link">Impact</a>
+        </nav>
+    </header>
+    
+    <section class="hero">
+        <h1>Carbon Transparency in E-Commerce</h1>
+        <p>Making sustainability visible without compromising the shopping experience. We're turning carbon footprints into strategic advantages.</p>
+    </section>
+    
+    <div class="container">
+        <h2 class="section-title">
+            <i class="fas fa-shopping-bag"></i>
+            Sustainable Products
+        </h2>
+        
+        <div class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');">
+                    <div class="carbon-badge badge-A">
+                        <i class="fas fa-leaf"></i> A- (1.2kg CO₂e)
+                    </div>
                 </div>
-                
-                <div class="author-info">
-                    <p><strong>Presented by:</strong> [Your Name]</p>
-                    <p><strong>International Competition 2025</strong></p>
+                <div class="product-info">
+                    <div class="product-title">
+                        <span>Organic Cotton T-Shirt</span>
+                        <span class="product-price">$29.99</span>
+                    </div>
+                    <p class="product-description">100% organic cotton, fair trade certified, biodegradable packaging</p>
+                    
+                    <div class="carbon-details">
+                        <div><i class="fas fa-info-circle"></i> Carbon Breakdown:</div>
+                        <div class="carbon-breakdown">
+                            <div class="breakdown-item">
+                                <span>Manufacturing:</span>
+                                <span>0.5kg</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span>Shipping:</span>
+                                <span>0.6kg</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span>Packaging:</span>
+                                <span>0.1kg</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span>End-of-life:</span>
+                                <span>0.0kg</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="cta-button" onclick="addToCart('tshirt')">
+                        <i class="fas fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Product 2 -->
+            <div class="product-card">
+                <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');">
+                    <div class="carbon-badge badge-B">
+                        <i class="fas fa-leaf"></i> B (2.1kg CO₂e)
+                    </div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">
+                        <span>Wireless Headphones</span>
+                        <span class="product-price">$89.99</span>
+                    </div>
+                    <p class="product-description">Premium sound quality, 30hr battery life, recycled materials</p>
+                    
+                    <div class="carbon-details">
+                        <div><i class="fas fa-info-circle"></i> Carbon Breakdown:</div>
+                        <div class="carbon-breakdown">
+                            <div class="breakdown-item">
+                                <span>Manufacturing:</span>
+                                <span>1.2kg</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span>Shipping:</span>
+                                <span>0.8kg</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span>Packaging:</span>
+                                <span>0.1kg</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span>End-of-life:</span>
+                                <span>0.3kg</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="cta-button" onclick="addToCart('headphones')">
+                        <i class="fas fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Product 3 -->
+            <div class="product-card">
+                <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1600857062241-98e1d6160dd0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');">
+                    <div class="carbon-badge badge-C">
+                        <i class="fas fa-leaf"></i> C+ (3.8kg CO₂e)
+                    </div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">
+                        <span>Smartphone</span>
+                        <span class="product-price">$599.99</span>
+                    </div>
+                    <p class="product-description">Latest model, 128GB storage, 5G connectivity</p>
+                    
+                    <div class="carbon-details">
+                        <div><i class="fas fa-info-circle"></i> Carbon Breakdown:</div>
+                        <div class="carbon-breakdown">
+                            <div class="breakdown-item">
+                                <span>Manufacturing:</span>
+                                <span>3.1kg</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span>Shipping:</span>
+                                <span>0.6kg</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span>Packaging:</span>
+                                <span>0.1kg</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span>End-of-life:</span>
+                                <span>0.7kg</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="cta-button" onclick="addToCart('smartphone')">
+                        <i class="fas fa-cart-plus"></i> Add to Cart
+                    </button>
                 </div>
             </div>
         </div>
-
-        <!-- Slide 2: Problem Statement -->
-        <div class="slide">
-            <div class="slide-number">2/12</div>
-            <div class="slide-header">
-                <h2>🔍 The Carbon Conundrum</h2>
+        
+        <div class="carbon-comparison">
+            <div class="comparison-header">
+                <h2 class="section-title">
+                    <i class="fas fa-chart-bar"></i>
+                    Carbon Impact Comparison
+                </h2>
             </div>
-            <div class="slide-content">
-                <div class="equation">
-                    Traditional E-commerce = ∑(Manufacturing + Shipping + Packaging + ❓)<br>
-                    Where ❓ = <span style="color: #ff6b6b;">UNKNOWN BLACK HOLE</span> 🕳️
-                </div>
-                
-                <div class="key-points">
-                    <div class="point-card">
-                        <h4>🛒 Current State</h4>
-                        <p>Customers can see price, reviews, delivery time - but carbon impact remains completely invisible</p>
-                    </div>
-                    <div class="point-card">
-                        <h4>🌍 The Impact</h4>
-                        <p>Sub-optimal planet management due to carbon-blind shopping decisions</p>
-                    </div>
-                </div>
-                
-                <div class="highlight-box">
-                    <h4>🧬 The DNA of the Problem</h4>
-                    <p>E-commerce platforms operate like <strong>carbon-blind telescopes</strong> - they measure distance (price) and brightness (reviews), but miss the most crucial wavelength: environmental impact.</p>
-                </div>
-            </div>
+            
+            <canvas id="carbonChart"></canvas>
         </div>
-
-        <!-- Slide 3: Solution Overview -->
-        <div class="slide">
-            <div class="slide-number">3/12</div>
-            <div class="slide-header">
-                <h2>⚡ Strategic Carbon Integration</h2>
-            </div>
-            <div class="slide-content">
-                <div class="equation">
-                    Carbon Transparency Coefficient (CTC) = <br>
-                    (Σ Scope1,2,3 Emissions) / (Product Utility × User Engagement)<br>
-                    <strong>Optimal Range: 0.1 ≤ CTC ≤ 0.8</strong>
-                </div>
-                
-                <div class="wireframe">
-🔍 Search: "wireless headphones"
-├────────────────────────────────────────────────┤
-│ [📷] Sony WH-1000XM4 - $299.99                │
-│ ⭐⭐⭐⭐⭐ (4.5/5) | 🟢 A+ (1.2kg CO₂e)      │
-│ ⓘ Breakdown: Mfg: 0.5kg | Ship: 0.6kg | Pkg: 0.1kg │
-│                                                │
-│ [📷] Bose QuietComfort - $329.99               │
-│ ⭐⭐⭐⭐⭐ (4.3/5) | 🟡 B (2.1kg CO₂e)        │
-│ ⓘ Breakdown: Mfg: 1.2kg | Ship: 0.7kg | Pkg: 0.2kg │
-└────────────────────────────────────────────────┘
-                </div>
-                
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-number">60%</div>
-                        <div class="stat-label">Auto-filled Data</div>
+        
+        <h2 class="section-title">
+            <i class="fas fa-shopping-cart"></i>
+            Your Sustainable Cart
+        </h2>
+        
+        <div class="cart-summary">
+            <div class="cart-item">
+                <div class="cart-item-image" style="background-image: url('https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80');"></div>
+                <div class="cart-item-info">
+                    <div class="product-title">
+                        <span>Organic T-Shirt</span>
+                        <span class="product-price">$29.99</span>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-number">90%</div>
-                        <div class="stat-label">Accuracy Target</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">18mo</div>
-                        <div class="stat-label">ROI Timeline</div>
+                    <div class="savings-badge">
+                        <i class="fas fa-cloud"></i> Saved 1.2kg vs. average
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Slide 4: Smart Nudging -->
-        <div class="slide">
-            <div class="slide-number">4/12</div>
-            <div class="slide-header">
-                <h2>🧠 Smart Nudging Psychology</h2>
-            </div>
-            <div class="slide-content">
-                <div class="equation">
-                    Nudge Impact = (Behavioral Trigger × Timing) / (Cognitive Load + Friction)<br>
-                    <strong>Sweet Spot: High Impact, Low Friction</strong>
-                </div>
-                
-                <div class="flow-diagram">
-                    <div class="flow-step">User adds item to cart</div>
-                    <div class="flow-arrow">→</div>
-                    <div class="flow-step">🤖 AI scans alternatives</div>
-                    <div class="flow-arrow">→</div>
-                    <div class="flow-step">Smart swap suggestion</div>
-                </div>
-                
-                <div class="diagram-container">
-                    <div class="diagram-title">🎯 Nudge Algorithm</div>
-                    <div class="wireframe">
-IF (alternative.carbon_impact < current.carbon_impact × 0.7)
-   AND (price_difference < $20)
-   AND (user_preference_match > 0.8)
-THEN:
-   Display: "🌱 Swap for 30% less carbon? Save 0.8kg CO₂e!"
-   Button: [Make it Green! 🌿] [Nah, I'm good]
-ELSE:
-   Continue checkout
+            
+            <div class="cart-item">
+                <div class="cart-item-image" style="background-image: url('https://images.unsplash.com/photo-1600857062241-98e1d6160dd0?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80');"></div>
+                <div class="cart-item-info">
+                    <div class="product-title">
+                        <span>Smartphone</span>
+                        <span class="product-price">$599.99</span>
                     </div>
-                </div>
-                
-                <div class="highlight-box">
-                    <h4>The Netflix Effect</h4>
-                    <p>Instead of "Because you watched 'The Office'" it's "Because you breathe oxygen" 😄</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 5: Technical Architecture -->
-        <div class="slide">
-            <div class="slide-number">5/12</div>
-            <div class="slide-header">
-                <h2>🛠️ Technical Architecture</h2>
-            </div>
-            <div class="slide-content">
-                <div class="equation">
-                    Data Accuracy = (Supplier Data × 0.4) + (API Logistics × 0.3) + (ML Prediction × 0.3)<br>
-                    <strong>Target: >90% accuracy</strong>
-                </div>
-                
-                <div class="diagram-container">
-                    <div class="diagram-title">🏗️ System Architecture</div>
-                    <div class="wireframe">
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   SUPPLIER      │────│   CARBON AI     │────│   USER INTERFACE│
-│   PORTAL        │    │   ENGINE        │    │   LAYER         │
-│                 │    │                 │    │                 │
-│ • Auto-import   │    │ • ML Models     │    │ • Smart Badges  │
-│ • DHL/FedEx API │    │ • Scope 3 Pred  │    │ • Nudge System  │
-│ • Manual Entry  │    │ • Accuracy Flags│    │ • Comparison UI │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-       │                         │                         │
-       └─────────────────────────┼─────────────────────────┘
-                                │
-                       ┌─────────────────┐
-                       │ BLOCKCHAIN      │
-                       │ VERIFICATION    │
-                       │ • Audit Trail   │
-                       │ • Immutable Log │
-                       └─────────────────┘
-                    </div>
-                </div>
-                
-                <div class="key-points">
-                    <div class="point-card">
-                        <h4>🔬 ML Pipeline</h4>
-                        <p>Trained on 2.3M product carbon footprints with 90% accuracy for known categories</p>
-                    </div>
-                    <div class="point-card">
-                        <h4>⚡ Performance</h4>
-                        <p>Sub-second calculations, 99.9% uptime, scalable to 1B+ transactions</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 6: Data Challenges -->
-        <div class="slide">
-            <div class="slide-number">6/12</div>
-            <div class="slide-header">
-                <h2>🎯 Conquering Data Challenges</h2>
-            </div>
-            <div class="slide-content">
-                <div class="equation">
-                    Friction Score = (Data Entry Time × Complexity) / (Automation × Training)<br>
-                    <strong>Goal: Friction Score < 0.3</strong>
-                </div>
-                
-                <div class="key-points">
-                    <div class="point-card">
-                        <h4>📊 Before Our System</h4>
-                        <ul class="bullet-points">
-                            <li>4 hours/week carbon reporting</li>
-                            <li>Manual Excel sheets</li>
-                            <li>92% data entry errors</li>
-                            <li>Maximum supplier frustration</li>
-                        </ul>
-                    </div>
-                    <div class="point-card">
-                        <h4>🚀 After Implementation</h4>
-                        <ul class="bullet-points">
-                            <li>2.4 hours/week (40% reduction)</li>
-                            <li>Auto-populated fields</li>
-                            <li>15% data entry errors</li>
-                            <li>High supplier satisfaction</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="highlight-box">
-                    <h4>🏆 Rose Acre Farms Success Story</h4>
-                    <p>Reduced reporting time by 40% while improving data accuracy by 77%. Suppliers now say: "Finally, something that works!"</p>
-                </div>
-                
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-number">60%</div>
-                        <div class="stat-label">Auto-filled Data</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">40%</div>
-                        <div class="stat-label">Time Reduction</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">77%</div>
-                        <div class="stat-label">Accuracy Improvement</div>
+                    <div class="savings-badge">
+                        <i class="fas fa-cloud"></i> Saved 0.8kg vs. average
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Slide 7: Anti-Greenwashing -->
-        <div class="slide">
-            <div class="slide-number">7/12</div>
-            <div class="slide-header">
-                <h2>🕵️ Greenwashing Detection</h2>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <i class="fas fa-cloud" style="font-size: 2.5rem; color: var(--eco-green);"></i>
+                <div class="stat-value">2.0kg</div>
+                <div class="stat-label">Total Carbon Saved</div>
             </div>
-            <div class="slide-content">
-                <div class="equation">
-                    Greenwashing Probability Index (GPI) = <br>
-                    (Marketing Claims - Verified Data)² / (Industry Benchmark × Audit Frequency)<br>
-                    <strong>Red Flag: GPI > 0.5</strong>
+            
+            <div class="stat-card">
+                <i class="fas fa-trees" style="font-size: 2.5rem; color: var(--eco-green);"></i>
+                <div class="stat-value">8.3</div>
+                <div class="stat-label">Tree Planting Days</div>
+            </div>
+            
+            <div class="stat-card">
+                <i class="fas fa-car" style="font-size: 2.5rem; color: var(--eco-green);"></i>
+                <div class="stat-value">7.5km</div>
+                <div class="stat-label">Car Driving Equivalent</div>
+            </div>
+        </div>
+        
+        <div class="carbon-impact">
+            <h3 class="impact-title">Your Environmental Impact</h3>
+            <canvas id="impactChart"></canvas>
+            
+            <div class="impact-equivalent">
+                <div class="equivalent-card">
+                    <i class="fas fa-bolt" style="font-size: 2.5rem; color: var(--carbon-orange);"></i>
+                    <div class="equivalent-value">42 kWh</div>
+                    <div class="equivalent-label">Electricity Equivalent</div>
                 </div>
                 
-                <div class="diagram-container">
-                    <div class="diagram-title">🛡️ Multi-Layer Verification</div>
-                    <div class="wireframe">
-Layer 1: Real-time API Validation ✓
-├─ DHL/FedEx shipping data
-├─ Energy grid carbon intensity  
-├─ Manufacturing location verification
-
-Layer 2: Anomaly Detection AI 🤖
-├─ Statistical outlier flagging
-├─ Peer comparison analysis
-├─ Temporal consistency checks
-
-Layer 3: Blockchain Audit Trail 🔗
-├─ Immutable data history
-├─ Third-party verification stamps
-└─ Public transparency dashboard
-                    </div>
+                <div class="equivalent-card">
+                    <i class="fas fa-water" style="font-size: 2.5rem; color: var(--carbon-orange);"></i>
+                    <div class="equivalent-value">1,250 L</div>
+                    <div class="equivalent-label">Water Consumption</div>
                 </div>
                 
-                <div class="key-points">
-                    <div class="point-card">
-                        <h4>🔍 Detection Accuracy</h4>
-                        <p><strong>94%</strong> for blatant greenwashing<br><strong>78%</strong> for subtle manipulations</p>
-                    </div>
-                    <div class="point-card">
-                        <h4>⚡ Real-time Flags</h4>
-                        <p>Instant alerts when data doesn't match reality. Like having a digital detective that never sleeps!</p>
-                    </div>
+                <div class="equivalent-card">
+                    <i class="fas fa-hamburger" style="font-size: 2.5rem; color: var(--carbon-orange);"></i>
+                    <div class="equivalent-value">5.7</div>
+                    <div class="equivalent-label">Cheeseburgers</div>
                 </div>
             </div>
         </div>
-
-        <!-- Slide 8: ROI Analysis -->
-        <div class="slide">
-            <div class="slide-number">8/12</div>
-            <div class="slide-header">
-                <h2>💰 Economics of Going Green</h2>
+    </div>
+    
+    <!-- Swap Suggestion Modal -->
+    <div id="swapModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h3 class="modal-title">
+                <i class="fas fa-exchange-alt"></i>
+                Eco-Friendly Swap Opportunity!
+            </h3>
+            <p>We found a more sustainable alternative for an item in your cart:</p>
+            
+            <div style="display: flex; gap: 20px; margin: 25px 0; align-items: center;">
+                <div style="text-align: center;">
+                    <div style="height: 100px; width: 100px; background-image: url('https://images.unsplash.com/photo-1600857062241-98e1d6160dd0?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80'); background-size: cover; border-radius: 10px; margin: 0 auto;"></div>
+                    <p style="margin-top: 10px; font-weight: 600;">Current Smartphone</p>
+                    <div class="carbon-badge badge-C" style="margin: 10px auto; width: fit-content;">
+                        C+ (3.8kg)
+                    </div>
+                </div>
+                
+                <div style="font-size: 2rem; color: var(--eco-green);">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+                
+                <div style="text-align: center;">
+                    <div style="height: 100px; width: 100px; background-image: url('https://images.unsplash.com/photo-1595941069915-4ebc5197c14a?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80'); background-size: cover; border-radius: 10px; margin: 0 auto;"></div>
+                    <p style="margin-top: 10px; font-weight: 600;">Refurbished Model</p>
+                    <div class="carbon-badge badge-B" style="margin: 10px auto; width: fit-content;">
+                        B (2.1kg)
+                    </div>
+                </div>
             </div>
-            <div class="slide-content">
-                <div class="equation">
-                    Carbon ROI = (Revenue Increase + Cost Savings - Implementation Cost) / Implementation Cost<br>
-                    <strong>Industry Average: 1.3x within 18 months</strong>
-                </div>
-                
-                <div class="key-points">
-                    <div class="point-card">
-                        <h4>📈 Revenue Boost</h4>
-                        <div class="carbon-badge grade-a">+19% Gen Z Retention</div>
-                        <div class="carbon-badge grade-a">+15% Conversion Rate</div>
-                        <div class="carbon-badge grade-a">+12% Average Order Value</div>
-                    </div>
-                    <div class="point-card">
-                        <h4>💸 Cost Savings</h4>
-                        <div class="carbon-badge grade-b">-25% Customer Acquisition</div>
-                        <div class="carbon-badge grade-b">-30% Returns</div>
-                        <div class="carbon-badge grade-b">-40% Compliance Costs</div>
-                    </div>
-                </div>
-                
-                <div class="highlight-box">
-                    <h4>🍎 The Apple Parallel</h4>
-                    <p>Just like Apple made privacy their competitive advantage, we're turning carbon compliance into market dominance. Soon, "carbon-blind" will be the new "feature phone"!</p>
-                </div>
-                
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-number">18</div>
-                        <div class="stat-label">Months to ROI</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">130%</div>
-                        <div class="stat-label">Return Rate</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">25%</div>
-                        <div class="stat-label">Cost Reduction</div>
-                    </div>
-                </div>
+            
+            <p>By switching, you'll save <span style="color: var(--eco-green); font-weight: 600;">1.7kg of CO₂</span> (45% reduction) and <span style="color: var(--eco-green); font-weight: 600;">$150</span>!</p>
+            
+            <div class="modal-buttons">
+                <button class="modal-button modal-primary" onclick="applySwap()">
+                    <i class="fas fa-sync-alt"></i> Switch to Eco Option
+                </button>
+                <button class="modal-button modal-secondary" onclick="closeModal()">
+                    <i class="fas fa-times"></i> Keep Current Item
+                </button>
             </div>
         </div>
-
-        <!-- Slide 9: Burning Questions -->
-        <div class="slide">
-            <div class="slide-number">9/12</div>
-            <div class="slide-header">
-                <h2>🔥 Addressing Burning Questions</h2>
-            </div>
-            <div class="slide-content">
-                <div class="key-points">
-                    <div class="point-card">
-                        <h4>🤔 "Will this hurt small suppliers?"</h4>
-                        <p><strong>Short Answer:</strong> Nope! Like asking if GPS hurt delivery drivers.</p>
-                        <p><strong>Technical:</strong> 60% auto-populated data, only 3 manual fields needed. Reduced reporting from 4 hours to 45 minutes!</p>
-                    </div>
-                    <div class="point-card">
-                        <h4>🎭 "How prevent greenwashing?"</h4>
-                        <p><strong>Short Answer:</strong> Carbon lie detectors with PhD degrees!</p>
-                        <p><strong>Technical:</strong> Triple verification: API validation, AI anomaly detection, blockchain audit trails.</p>
-                    </div>
-                </div>
-                
-                <div class="equation">
-                    Small Supplier Burden = (Total Data Required × Auto Fill Rate) / Training Effectiveness<br>
-                    <strong>Result: 85% reduction in manual work!</strong>
-                </div>
-                
-                <div class="highlight-box">
-                    <h4>⏰ ROI Timeline Reality Check</h4>
-                    <p><strong>18 months payback</strong> (faster than most gym memberships!). Phase 1 compliance costs offset by Gen Z loyalty increases. By month 18, positive ROI from increased conversions and reduced acquisition costs.</p>
-                </div>
-            </div>
+    </div>
+    
+    <footer>
+        <p>Carbon Transparency Demo for HelloPM Case Challenge</p>
+        <div class="footer-links">
+            <a href="#" class="footer-link">Privacy Policy</a>
+            <a href="#" class="footer-link">Methodology</a>
+            <a href="#" class="footer-link">Research Sources</a>
+            <a href="#" class="footer-link">Contact Us</a>
         </div>
+        <p>&copy; 2025 CarbonScope. Making sustainability visible.</p>
+    </footer>
 
-        <!-- Slide 10: Implementation Roadmap -->
-        <div class="slide">
-            <div class="slide-number">10/12</div>
-            <div class="slide-header">
-                <h2>🗺️ Implementation Roadmap</h2>
-            </div>
-            <div class="slide-content">
-                <div class="wireframe">
-Phase 1: Foundation (Months 1-6)
-├─ 🏗️ Core API development
-├─ 🤝 Top 50 supplier onboarding  
-├─ 🧪 A/B testing framework
-└─ 📊 Basic carbon badges
-
-Phase 2: Intelligence (Months 7-12)
-├─ 🤖 ML model deployment
-├─ 🔍 Greenwashing detection
-├─ 🎯 Smart nudging system
-└─ 📈 Advanced analytics
-
-Phase 3: Ecosystem (Months 13-18)
-├─ 🌐 Full marketplace integration
-├─ 🏆 Gamification features
-├─ 📱 Mobile app launch
-└─ 🔗 Blockchain verification
-
-Phase 4: Dominance (Months 19-24)
-├─ 🚀 International expansion
-├─ 🛰️ IoT sensor integration
-├─ 💰 Carbon credit marketplace
-└─ 🌍 Global carbon standards
-                </div>
-                
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-number">90%</div>
-                        <div class="stat-label">Data Accuracy</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">2s</div>
-                        <div class="stat-label">Load Time</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">1M</div>
-                        <div class="stat-label">Tons CO₂ Saved</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 11: Competitive Advantage -->
+    <script>
+        // Initialize particles background
+        particlesJS("particles-js", {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: "#10b981" },
+                shape: { type: "circle" },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: "#3b82f6",
+                    opacity: 0.2,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    out_mode: "out",
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "grab" },
+                    onclick: { enable: true, mode: "push" },
+                    resize: true
+                }
+            }
+        });
+        
+        // Setup carbon comparison chart
+        const ctx = document.getElementById('carbonChart').getContext('2d');
+        const carbonChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Organic T-Shirt', 'Wireless Headphones', 'Smartphone', 'Industry Average'],
+                datasets: [{
+                    label: 'Carbon Footprint (kg CO₂e)',
+                    data: [1.2, 2.1, 3.8, 4.5],
+                    backgroundColor: [
+                        'rgba(16, 185, 129, 0.7)',
+                        'rgba(245, 158, 11, 0.7)',
+                        'rgba(239, 68, 68, 0.7)',
+                        'rgba(148, 163, 184, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgba(16, 185, 129, 1)',
+                        'rgba(245, 158, 11, 1)',
+                        'rgba(239, 68, 68, 1)',
+                        'rgba(148, 163, 184, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'kg CO₂e'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#f0f9ff'
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Setup impact chart
+        const impactCtx = document.getElementById('impactChart').getContext('2d');
+        const impactChart = new Chart(impactCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Manufacturing', 'Shipping', 'Packaging', 'End-of-life'],
+                datasets: [{
+                    data: [65, 20, 5, 10],
+                    backgroundColor: [
+                        'rgba(30, 64, 175, 0.8)',
+                        'rgba(16, 185, 129, 0.8)',
+                        'rgba(245, 158, 11, 0.8)',
+                        'rgba(239, 68, 68, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(30, 64, 175, 1)',
+                        'rgba(16, 185, 129, 1)',
+                        'rgba(245, 158, 11, 1)',
+                        'rgba(239, 68, 68, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: {
+                            color: '#f0f9ff',
+                            padding: 20,
+                            font: {
+                                size: 14
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Carbon Footprint Breakdown',
+                        color: '#f0f9ff',
+                        font: {
+                            size: 18
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Modal functions
+        function addToCart(product) {
+            // Show modal only for smartphone to demonstrate swap suggestion
+            if (product === 'smartphone') {
+                document.getElementById('swapModal').style.display = 'flex';
+            } else {
+                // For demo purposes
+                alert('Added to cart!');
+            }
+        }
+        
+        function closeModal() {
+            document.getElementById('swapModal').style.display = 'none';
+        }
+        
+        function applySwap() {
+            alert('You switched to a more sustainable option! Saving 1.7kg CO₂ and $150.');
+            closeModal();
+        }
+        
+        // Simulate cart interaction
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add subtle animations to product cards
+            const productCards = document.querySelectorAll('.product-card');
+            productCards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.2}s`;
+            });
+        });
+    </script>
+</body>
+</html>
