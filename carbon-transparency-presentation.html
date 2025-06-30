@@ -744,6 +744,79 @@
             margin-bottom: 1rem;
         }
         
+        /* New Contact Section */
+        .contact-section {
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 5rem 0;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact-section:before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(123, 97, 255, 0.1) 0%, transparent 70%);
+            transform: rotate(30deg);
+            z-index: -1;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .contact-card {
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(124, 58, 237, 0.2);
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+            border-color: var(--eco-green);
+        }
+        
+        .contact-icon {
+            font-size: 3rem;
+            color: var(--supernova-yellow);
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--starlight);
+        }
+        
+        .contact-link {
+            color: var(--eco-green);
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: block;
+            margin-top: 1rem;
+            word-break: break-all;
+        }
+        
+        .contact-link:hover {
+            color: var(--supernova-yellow);
+            transform: scale(1.05);
+        }
+        
         footer {
             text-align: center;
             padding: 3rem 2rem;
@@ -805,6 +878,7 @@
             border-top: 1px solid rgba(124, 58, 237, 0.2);
         }
         
+        /* Animations */
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
@@ -830,6 +904,16 @@
             0% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
             100% { transform: translateY(0); }
+        }
+        
+        @keyframes fadeOutDown {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(20px); }
+        }
+        
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
         }
         
         @media (max-width: 768px) {
@@ -868,6 +952,10 @@
                 right: auto;
                 left: -40px;
             }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -884,30 +972,30 @@
             <div class="logo-text">CosmicCarbon</div>
         </div>
         <nav class="nav-links">
-            <a href="#" class="nav-link">Home</a>
-            <a href="#" class="nav-link">How It Works</a>
-            <a href="#" class="nav-link">For Businesses</a>
-            <a href="#" class="nav-link">Impact</a>
-            <a href="#" class="nav-link">Research</a>
+            <a href="#home" class="nav-link">Home</a>
+            <a href="#features" class="nav-link">How It Works</a>
+            <a href="#products" class="nav-link">Products</a>
+            <a href="#contact" class="nav-link">Contact</a>
+            <a href="#timeline" class="nav-link">Journey</a>
         </nav>
     </header>
     
-    <section class="hero">
+    <section class="hero" id="home">
         <h1>Carbon Transparency in E-Commerce</h1>
         <p>Making sustainability visible without compromising the shopping experience. We're turning carbon footprints into strategic advantages using cosmic insights.</p>
         
         <div class="cta-buttons">
-            <button class="cta-button cta-primary">
+            <button class="cta-button cta-primary" onclick="document.getElementById('features').scrollIntoView({behavior: 'smooth'})">
                 <i class="fas fa-rocket"></i> Explore Solutions
             </button>
-            <button class="cta-button cta-secondary">
-                <i class="fas fa-star"></i> Join Beta
+            <button class="cta-button cta-secondary" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">
+                <i class="fas fa-star"></i> Contact Us
             </button>
         </div>
     </section>
     
     <div class="container">
-        <h2 class="section-title">
+        <h2 class="section-title" id="features">
             <i class="fas fa-atom"></i>
             Cosmic Carbon Features
         </h2>
@@ -938,7 +1026,7 @@
             </div>
         </div>
         
-        <h2 class="section-title">
+        <h2 class="section-title" id="products">
             <i class="fas fa-shopping-bag"></i>
             Sustainable Products
         </h2>
@@ -1172,7 +1260,50 @@
             </div>
         </div>
         
-        <div class="timeline">
+        <!-- New Contact Section -->
+        <section class="contact-section" id="contact">
+            <h2 class="section-title">
+                <i class="fas fa-envelope"></i>
+                Contact Us
+            </h2>
+            <p style="text-align: center; margin-bottom: 2rem; font-size: 1.2rem; max-width: 800px; margin: 0 auto 2rem;">
+                Have questions or want to learn more about our sustainability solutions? Reach out to us through any of these channels.
+            </p>
+            
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <h3 class="contact-title">GitHub</h3>
+                    <a href="https://github.com/harigovinda-clsi" class="contact-link" target="_blank">
+                        github.com/harigovinda-clsi
+                    </a>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3 class="contact-title">Email</h3>
+                    <a href="mailto:shreyasmishra@gmail.com" class="contact-link">
+                        shreyasmishra@gmail.com
+                    </a>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fab fa-linkedin"></i>
+                    </div>
+                    <h3 class="contact-title">LinkedIn</h3>
+                    <a href="https://in.linkedin.com/in/theshreyasmishra" class="contact-link" target="_blank">
+                        linkedin.com/in/theshreyasmishra
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <div class="timeline" id="timeline">
             <h2 class="section-title">
                 <i class="fas fa-history"></i>
                 Carbon Transparency Journey
@@ -1283,11 +1414,9 @@
             <div class="footer-section">
                 <h3>Connect</h3>
                 <div class="footer-links">
-                    <a href="#" class="footer-link"><i class="fab fa-github"></i> GitHub</a>
-                    <a href="#" class="footer-link"><i class="fab fa-twitter"></i> Twitter</a>
-                    <a href="#" class="footer-link"><i class="fab fa-linkedin"></i> LinkedIn</a>
-                    <a href="#" class="footer-link"><i class="fab fa-discord"></i> Discord</a>
-                    <a href="#" class="footer-link"><i class="fab fa-youtube"></i> YouTube</a>
+                    <a href="https://github.com/harigovinda-clsi" class="footer-link" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="mailto:shreyasmishra@gmail.com" class="footer-link"><i class="fas fa-envelope"></i> Gmail</a>
+                    <a href="https://in.linkedin.com/in/theshreyasmishra" class="footer-link" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
                 </div>
             </div>
         </div>
@@ -1302,21 +1431,21 @@
         // Initialize particles background
         particlesJS("particles-js", {
             particles: {
-                number: { value: 120, density: { enable: true, value_area: 1000 } },
+                number: { value: 80, density: { enable: true, value_area: 800 } },
                 color: { value: "#10b981" },
                 shape: { type: "circle" },
                 opacity: { value: 0.5, random: true },
-                size: { value: 4, random: true },
+                size: { value: 3, random: true },
                 line_linked: {
                     enable: true,
-                    distance: 180,
+                    distance: 150,
                     color: "#3b82f6",
                     opacity: 0.3,
                     width: 1
                 },
                 move: {
                     enable: true,
-                    speed: 3,
+                    speed: 2,
                     direction: "none",
                     random: true,
                     straight: false,
@@ -1334,7 +1463,7 @@
             }
         });
         
-        // Constellation effect
+        // Constellation effect - FIXED
         const constellationCanvas = document.getElementById('constellation');
         const ctxConstellation = constellationCanvas.getContext('2d');
         
@@ -1347,31 +1476,31 @@
         setupConstellation();
         
         const stars = [];
-        const starCount = 150;
+        const starCount = 200;
         
         for (let i = 0; i < starCount; i++) {
             stars.push({
                 x: Math.random() * constellationCanvas.width,
                 y: Math.random() * constellationCanvas.height,
-                size: Math.random() * 2 + 1,
-                opacity: Math.random() * 0.5 + 0.5
+                size: Math.random() * 2 + 0.5,
+                opacity: Math.random() * 0.7 + 0.3
             });
         }
         
         function drawConstellation() {
             ctxConstellation.clearRect(0, 0, constellationCanvas.width, constellationCanvas.height);
             
-            // Draw stars
-            ctxConstellation.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            // Draw stars with varying opacity
             stars.forEach(star => {
                 ctxConstellation.beginPath();
                 ctxConstellation.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                ctxConstellation.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
                 ctxConstellation.fill();
             });
             
-            // Draw connections
-            ctxConstellation.strokeStyle = 'rgba(16, 185, 129, 0.2)';
-            ctxConstellation.lineWidth = 0.5;
+            // Draw connections with a cosmic blue color
+            ctxConstellation.strokeStyle = 'rgba(30, 64, 175, 0.4)';
+            ctxConstellation.lineWidth = 0.8;
             
             for (let i = 0; i < stars.length; i++) {
                 for (let j = i + 1; j < stars.length; j++) {
@@ -1522,26 +1651,7 @@
                 document.getElementById('swapModal').style.display = 'flex';
             } else {
                 // For demo purposes
-                const notification = document.createElement('div');
-                notification.textContent = 'Added to cart!';
-                notification.style.position = 'fixed';
-                notification.style.bottom = '20px';
-                notification.style.right = '20px';
-                notification.style.backgroundColor = 'rgba(16, 185, 129, 0.9)';
-                notification.style.color = 'white';
-                notification.style.padding = '15px 25px';
-                notification.style.borderRadius = '10px';
-                notification.style.zIndex = '10000';
-                notification.style.boxShadow = '0 5px 15px rgba(0,0,0,0.3)';
-                notification.style.animation = 'fadeInUp 0.5s ease-out';
-                document.body.appendChild(notification);
-                
-                setTimeout(() => {
-                    notification.style.animation = 'fadeOutDown 0.5s ease-out';
-                    setTimeout(() => {
-                        document.body.removeChild(notification);
-                    }, 500);
-                }, 2000);
+                showNotification('Added to cart!', 'rgba(16, 185, 129, 0.9)');
             }
         }
         
@@ -1550,12 +1660,20 @@
         }
         
         function applySwap() {
+            showNotification(
+                '<i class="fas fa-check-circle"></i> You switched to a more sustainable option! Saving 1.7kg CO₂ and $150.', 
+                'rgba(16, 185, 129, 0.9)'
+            );
+            closeModal();
+        }
+        
+        function showNotification(message, bgColor) {
             const notification = document.createElement('div');
-            notification.innerHTML = '<i class="fas fa-check-circle"></i> You switched to a more sustainable option! Saving 1.7kg CO₂ and $150.';
+            notification.innerHTML = message;
             notification.style.position = 'fixed';
             notification.style.bottom = '20px';
             notification.style.right = '20px';
-            notification.style.backgroundColor = 'rgba(16, 185, 129, 0.9)';
+            notification.style.backgroundColor = bgColor;
             notification.style.color = 'white';
             notification.style.padding = '15px 25px';
             notification.style.borderRadius = '10px';
@@ -1573,13 +1691,11 @@
                     document.body.removeChild(notification);
                 }, 500);
             }, 3000);
-            
-            closeModal();
         }
         
         // Add animation to elements on scroll
         document.addEventListener('DOMContentLoaded', function() {
-            const animatedElements = document.querySelectorAll('.feature-card, .product-card, .stat-card, .equivalent-card, .timeline-item');
+            const animatedElements = document.querySelectorAll('.feature-card, .product-card, .stat-card, .equivalent-card, .timeline-item, .contact-card');
             
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
